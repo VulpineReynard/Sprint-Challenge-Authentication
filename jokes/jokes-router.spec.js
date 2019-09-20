@@ -1,22 +1,16 @@
-// const request = require('supertest');
+const request = require('supertest');
 
-// const jokesRouter = require('./jokes-router.js');
+const server = require('../api/server.js');
 
-// describe('jokes-router.js', () => {
-//   describe('GET /', () => {
-//     it('returns 200 OK', () => {
-//       return request(jokesRouter)
-//       .get('/')
-//       .then(res => {
-//         expect(res.status).toBe(200);
-//       })
-//       .catch(err => {
-//         console.log(err)
-//       })
-//     })
+describe('jokes-router.js', () => {
 
-
-//   })
-// })
-
-// console.log('--------------------------------------------------')
+  describe('GET /jokes', () => {
+    it('should not work without JWT', () => {
+      return request(server)
+      .get('/api/jokes')
+      .then(res => {
+        expect(res.body).toEqual({ "message": "No credentials provided." })
+      })
+    })
+  })
+})
